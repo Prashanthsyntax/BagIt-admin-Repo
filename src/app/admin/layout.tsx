@@ -11,7 +11,6 @@ export default function RootLayout({
 
 
     return <>
-    <p>Admin layout</p>
         {children}
     </>
 }
