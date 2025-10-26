@@ -22,3 +22,29 @@ This will automatically fetch the latest Supabase CLI version.
 ```
 npx supabase gen types typescript --project-id ryitwsehcqgizpxbnzsq<this is project id> > src/supabase/types.ts<types that should fetch to this file>
 ```
+
+## Admin Panel For React Native Application in NextJS
+- Bootstrap NextJS Application with Typescript 
+- Master Routing in NextJS
+- Supabase, Server Side Rending and Supabase Types
+- Supabase Email and Password Authentication
+- Authorization and Routes Protection in NextJS
+- Role Level Security / Authorization
+- Layout in NextJS
+- Signout And Theming
+- Category Table Supabase
+- Fetch Category Server Action
+- Product Schema and Row Level Security
+- Category Page Setup
+- Code walkthrough
+- Category Page UI Implementation
+- Category Page UI Completion
+- Create Category And Supabase Storage
+- Update And Delete Category
+- Product Page Setup
+- Code walkthrough
+- Create product Schema
+- Product CRUD actions
+- Product Page Utility Setup
+- Product Page Layout
+- Project Walkthrough So Far

@@ -10,8 +10,8 @@ export const getCategoriesWithProducts = async (): Promise<CategoriesWithProduct
     .from('category')
     .select('*, products:product(*)')
     .returns<CategoriesWithProductsResponse>();
-
-    if(error) throw new Error(`Error fetching categories: ${error.message}`);
-
+    if (error) {
+        console.log(`Error fetching categories: ${error.message}`);
+    }
     return data || [];
 };
