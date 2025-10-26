@@ -23,6 +23,14 @@ This will automatically fetch the latest Supabase CLI version.
 npx supabase gen types typescript --project-id ryitwsehcqgizpxbnzsq<this is project id> > src/supabase/types.ts<types that should fetch to this file>
 ```
 
+## TechStack
+1. NextJS
+2. TypeScript
+3. Supabase
+4. Shadcn UI for prebuilt Snippets
+
+
+
 ## Admin Panel For React Native Application in NextJS
 - Bootstrap NextJS Application with Typescript 
 - Master Routing in NextJS
