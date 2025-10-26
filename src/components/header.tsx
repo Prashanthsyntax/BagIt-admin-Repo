@@ -16,6 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 const NAV_LINKS = [
   { href: '/admin/dashboard', label: 'Dashboard' },
@@ -26,6 +27,8 @@ const NAV_LINKS = [
 
 export const Header = () => {
   const pathname = usePathname();
+
+  const { setTheme } = useTheme();
 
   const handleLogout = async () => {
     // Add logic to handle logout
@@ -118,23 +121,17 @@ export const Header = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
                   <DropdownMenuItem
-                    onClick={() => {
-                      /* Set light theme */
-                    }}
+                    onClick={() => setTheme('light')}
                   >
                     Light
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => {
-                      /* Set light theme */
-                    }}
+                    onClick={() => setTheme('dark')}
                   >
                     Dark
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => {
-                      /* Set light theme */
-                    }}
+                    onClick={() => setTheme('system')}
                   >
                     System
                   </DropdownMenuItem>
