@@ -1,6 +1,6 @@
 'use client';
 
-// import { authenticate } from '@/actions/auth';
+import { authenticate } from '@/actions/auth';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -41,9 +41,9 @@ export default function Auth() {
     setIsAuthenticating(true);
 
     try {
-      console.log(email, password);
-      // await authenticate(email, password);
-      // router.push('/admin');
+      // console.log(email, password);
+      await authenticate(email, password);
+      router.push('/admin');
     } catch (error) {
     } finally {
       setIsAuthenticating(false);
