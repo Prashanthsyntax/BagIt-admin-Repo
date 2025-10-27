@@ -16,7 +16,7 @@ npx supabase start
 npx supabase login
 npx supabase link
 ```
-To Regenerate the Types from the supabase
+- To Regenerate the Types from the supabase
 ```
 npx supabase gen types typescript --project-id ryitwsehcqgizpxbnzsq --schema public > src/supabase/types.ts
 ```
