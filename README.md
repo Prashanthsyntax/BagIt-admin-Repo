@@ -16,6 +16,11 @@ npx supabase start
 npx supabase login
 npx supabase link
 ```
+To Regenerate the Types from the supabase
+```
+npx supabase gen types typescript --project-id ryitwsehcqgizpxbnzsq --schema public > src/supabase/types.ts
+```
+
 This will automatically fetch the latest Supabase CLI version.
 
 ### To declare the types in Supabase for Database
