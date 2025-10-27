@@ -1,6 +1,9 @@
 'use server';
 
+
+import slugify from 'slugify';
 import { CategoriesWithProductsResponse } from "@/app/admin/categories/categories.types";
+import { CreateCategorySchemaServer } from "@/app/admin/categories/create-category.schema";
 import { createClient } from "@/supabase/server";
 
 export const getCategoriesWithProducts = async (): Promise<CategoriesWithProductsResponse> => {
@@ -49,3 +52,69 @@ export const imageUploadHandler = async (formData: FormData) => {
     throw new Error('Error uploading image');
   }
 };
+
+
+export const createCategory = async ({
+  imageUrl,
+  name,
+}: CreateCategorySchemaServer) => {
+  const supabase = createClient();
+  const slug = slugify(name, { lower: true });
+
+  const { data, error } = await (await supabase).from('category').insert({
+    name,
+    imageUrl,
+    slug,
+  });
+
+  if (error) throw new Error(`Error creating category: ${error.message}`);
+
+//   revalidatePath('/admin/categories');
+
+  return data;
+};
+
+// export const updateCategory = async ({
+//   imageUrl,
+//   name,
+//   slug,
+// }: UpdateCategorySchema) => {
+//   const supabase = createClient();
+//   const { data, error } = await supabase
+//     .from('category')
+//     .update({ name, imageUrl })
+//     .match({ slug });
+
+//   if (error) throw new Error(`Error updating category: ${error.message}`);
+
+//   revalidatePath('/admin/categories');
+
+//   return data;
+// };
+
+// export const deleteCategory = async (id: number) => {
+//   const supabase = createClient();
+//   const { error } = await supabase.from('category').delete().match({ id });
+
+//   if (error) throw new Error(`Error deleting category: ${error.message}`);
+
+//   revalidatePath('/admin/categories');
+// };
+
+// export const getCategoryData = async () => {
+//   const supabase = createClient();
+//   const { data, error } = await supabase
+//     .from('category')
+//     .select('name, products:product(id)');
+
+//   if (error) throw new Error(`Error fetching category data: ${error.message}`);
+
+//   const categoryData = data.map(
+//     (category: { name: string; products: { id: number }[] }) => ({
+//       name: category.name,
+//       products: category.products.length,
+//     })
+//   );
+
+//   return categoryData;
+// };

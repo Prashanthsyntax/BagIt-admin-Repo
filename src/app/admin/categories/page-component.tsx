@@ -38,7 +38,9 @@ import { CategoriesWithProductsResponse } from "@/app/admin/categories/categorie
 import { CategoryForm } from "@/app/admin/categories/category-form";
 import { date } from "zod";
 import { da } from "zod/v4/locales";
-import { imageUploadHandler } from "@/actions/categories";
+import { createCategory, imageUploadHandler } from "@/actions/categories";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Props = {
   categories: CategoriesWithProductsResponse;
@@ -58,6 +60,8 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
     },
   });
 
+  const router = useRouter();
+
   const submitCategoryHandler: SubmitHandler<CreateCategorySchema> = async (
     data
   ) => {
@@ -70,7 +74,13 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
     // Upload image to supabase storage
     const imageUrl = await imageUploadHandler(formData);
 
-    
+    if(imageUrl) {
+        await createCategory({ imageUrl, name: data.name });
+        form.reset();
+        router.refresh();
+        setIsCreateCategoryModalOpen(false);
+        toast.success('Category created successfully');
+    }
   };
 
   return (
