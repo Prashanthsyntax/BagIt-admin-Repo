@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Plus, PlusCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { v4 as uuid } from 'uuid';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,6 +38,7 @@ import { CategoriesWithProductsResponse } from "@/app/admin/categories/categorie
 import { CategoryForm } from "@/app/admin/categories/category-form";
 import { date } from "zod";
 import { da } from "zod/v4/locales";
+import { imageUploadHandler } from "@/actions/categories";
 
 type Props = {
   categories: CategoriesWithProductsResponse;
@@ -59,7 +61,16 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
   const submitCategoryHandler: SubmitHandler<CreateCategorySchema> = async (
     data
   ) => {
-    console.log(data);
+    const uniqueId = uuid();
+    const fileName = `category/category-${uniqueId}`;
+    const file = new File([data.image[0]], fileName);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Upload image to supabase storage
+    const imageUrl = await imageUploadHandler(formData);
+
+    
   };
 
   return (
