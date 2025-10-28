@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { format } from 'date-fns';
 import { useState } from 'react';
 import { MoreHorizontal } from 'lucide-react';
@@ -26,7 +26,7 @@ import {
 import { TableCell, TableRow } from '@/components/ui/table';
 import { CategoryWithProducts } from '@/app/admin/categories/categories.types';
 import { CreateCategorySchema } from '@/app/admin/categories/create-category.schema';
-import { promises } from 'dns';
+// import { promises } from 'dns';
 
 export const CategoryTableRow = ({
   category,
