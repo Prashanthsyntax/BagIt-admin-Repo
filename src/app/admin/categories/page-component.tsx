@@ -104,7 +104,7 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
           if (imageUrl) {
             await updateCategory({
               imageUrl,
-              name: data.name,
+              name,
               slug: currentCategory.slug,
               intent: "update",
             });
@@ -126,7 +126,7 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
     await deleteCategory(id);
     router.refresh();
     toast.success('Category deleted successfully');
-  }
+  };
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
@@ -189,6 +189,7 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
                 category={category}
                 setCurrentCategory={setCurrentCategory}
                 setIsCreateCategoryModalOpen={setIsCreateCategoryModalOpen}
+                deleteCategoryHandler={deleteCategoryHandler}
               />
             ))}
           </TableBody>
