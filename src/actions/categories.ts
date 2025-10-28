@@ -1,6 +1,5 @@
 'use server';
 
-
 import slugify from 'slugify';
 import { CategoriesWithProductsResponse } from "@/app/admin/categories/categories.types";
 import { CreateCategorySchemaServer, UpdateCategorySchema } from "@/app/admin/categories/create-category.schema";
