@@ -33,7 +33,7 @@ npx supabase gen types typescript --project-id ryitwsehcqgizpxbnzsq<this is proj
 2. TypeScript
 3. Supabase
 4. Shadcn UI for prebuilt Snippets
-
+5. Stripe - For Payment.
 
 
 ## Admin Panel For React Native Application in NextJS
