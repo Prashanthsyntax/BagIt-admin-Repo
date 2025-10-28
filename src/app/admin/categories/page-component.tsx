@@ -65,6 +65,9 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
   const submitCategoryHandler: SubmitHandler<CreateCategorySchema> = async (
     data
   ) => {
+
+    
+
     const uniqueId = uuid();
     const fileName = `category/category-${uniqueId}`;
     const file = new File([data.image[0]], fileName);
