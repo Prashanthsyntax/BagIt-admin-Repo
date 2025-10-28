@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Plus, PlusCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -38,7 +38,11 @@ import { CategoriesWithProductsResponse } from "@/app/admin/categories/categorie
 import { CategoryForm } from "@/app/admin/categories/category-form";
 import { date } from "zod";
 import { da } from "zod/v4/locales";
-import { createCategory, imageUploadHandler } from "@/actions/categories";
+import {
+  createCategory,
+  imageUploadHandler,
+  updateCategory,
+} from "@/actions/categories";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -65,26 +69,59 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
   const submitCategoryHandler: SubmitHandler<CreateCategorySchema> = async (
     data
   ) => {
+    const { image, name, intent = "create " } = data;
 
-    
+    const handleImageUpload = async () => {
+      const uniqueId = uuid();
+      const fileName = `category/category-${uniqueId}`;
+      const file = new File([data.image[0]], fileName);
+      const formData = new FormData();
+      formData.append("file", file);
 
-    const uniqueId = uuid();
-    const fileName = `category/category-${uniqueId}`;
-    const file = new File([data.image[0]], fileName);
-    const formData = new FormData();
-    formData.append('file', file);
+      // Upload image to supabase storage
+      return imageUploadHandler(formData);
+    };
 
-    // Upload image to supabase storage
-    const imageUrl = await imageUploadHandler(formData);
+    switch (intent) {
+      case "create": {
+        const imageUrl = await handleImageUpload();
 
-    if(imageUrl) {
-        await createCategory({ imageUrl, name: data.name });
-        form.reset();
-        router.refresh();
-        setIsCreateCategoryModalOpen(false);
-        toast.success('Category created successfully');
+        if (imageUrl) {
+          await createCategory({ imageUrl, name: data.name });
+          form.reset();
+          router.refresh();
+          setIsCreateCategoryModalOpen(false);
+          toast.success("Category created successfully");
+        }
+        break;
+      }
+
+      case "update": {
+        if (image && currentCategory?.slug) {
+          const imageUrl = await handleImageUpload();
+
+          if (imageUrl) {
+            await updateCategory({
+              imageUrl,
+              name: data.name,
+              slug: currentCategory.slug,
+              intent: "update",
+            });
+            form.reset();
+            router.refresh();
+            setIsCreateCategoryModalOpen(false);
+            toast.success("Category updated successfully");
+          }
+        }
+      }
+
+      default: 
+        console.error('Invalid intent');
     }
   };
+
+
+  
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
@@ -112,10 +149,14 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
               </Button>
             </DialogTrigger>
             <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Create Category</DialogTitle>
-                </DialogHeader>
-                <CategoryForm form={form} onSubmit={submitCategoryHandler} defaultValues={currentCategory} />
+              <DialogHeader>
+                <DialogTitle>Create Category</DialogTitle>
+              </DialogHeader>
+              <CategoryForm
+                form={form}
+                onSubmit={submitCategoryHandler}
+                defaultValues={currentCategory}
+              />
             </DialogContent>
           </Dialog>
         </div>
@@ -123,29 +164,29 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
 
       <CardContent>
         <Table className="min-w-[600px">
-            <TableHeader>
-                <TableRow>
-                    <TableHead className="w-[100px] sm:table-cell">
-                        <span className="sr-only">Image</span>
-                    </TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead className="md:table-cell">Created at</TableHead>
-                    <TableHead className="md:table-cell">Products</TableHead>
-                    <TableHead>
-                        <span className="sr-only">Actions</span>
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {categories.map(category => (
-                    <CategoryTableRow 
-                        key={category.id}
-                        category={category}
-                        setCurrentCategory={setCurrentCategory}
-                        setIsCreateCategoryModalOpen={setIsCreateCategoryModalOpen}
-                    />
-                ))}
-            </TableBody>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px] sm:table-cell">
+                <span className="sr-only">Image</span>
+              </TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead className="md:table-cell">Created at</TableHead>
+              <TableHead className="md:table-cell">Products</TableHead>
+              <TableHead>
+                <span className="sr-only">Actions</span>
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {categories.map((category) => (
+              <CategoryTableRow
+                key={category.id}
+                category={category}
+                setCurrentCategory={setCurrentCategory}
+                setIsCreateCategoryModalOpen={setIsCreateCategoryModalOpen}
+              />
+            ))}
+          </TableBody>
         </Table>
       </CardContent>
     </main>
