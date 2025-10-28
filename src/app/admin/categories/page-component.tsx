@@ -70,7 +70,7 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
   const submitCategoryHandler: SubmitHandler<CreateCategorySchema> = async (
     data
   ) => {
-    const { image, name, intent = "create " } = data;
+    const { image, name, intent="create" } = data;
 
     const handleImageUpload = async () => {
       const uniqueId = uuid();
@@ -94,8 +94,8 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
           setIsCreateCategoryModalOpen(false);
           toast.success("Category created successfully");
         }
-        break;
       }
+      break;
 
       case "update": {
         if (image && currentCategory?.slug) {
@@ -115,6 +115,7 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
           }
         }
       }
+      break;
 
       default: 
         console.error('Invalid intent');
