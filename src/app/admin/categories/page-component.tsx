@@ -40,6 +40,7 @@ import { date } from "zod";
 import { da } from "zod/v4/locales";
 import {
   createCategory,
+  deleteCategory,
   imageUploadHandler,
   updateCategory,
 } from "@/actions/categories";
@@ -121,7 +122,11 @@ const CategoriesPageComponent: FC<Props> = ({ categories }) => {
   };
 
 
-  
+  const deleteCategoryHandler = async (id: number) => {
+    await deleteCategory(id);
+    router.refresh();
+    toast.success('Category deleted successfully');
+  }
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
