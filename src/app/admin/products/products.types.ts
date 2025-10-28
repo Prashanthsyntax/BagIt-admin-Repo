@@ -1,5 +1,7 @@
+import { Category } from "@/app/admin/categories/categories.types";
+
 export type ProductWithCategory = {
-  category: number;
+  category: Category;
   created_at: string;
   hero_image: string;
   id: number;
