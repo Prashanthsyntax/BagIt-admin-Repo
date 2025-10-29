@@ -1,7 +1,6 @@
 'use server';
 
 import slugify from 'slugify';
-
 import { createClient } from '@/supabase/server';
 import {
   ProductsWithCategoriesResponse,
