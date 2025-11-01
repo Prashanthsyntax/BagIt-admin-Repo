@@ -53,6 +53,7 @@ type OrderedProducts = {
   };
 }[];
 
+
 export default function PageComponent({ ordersWithProducts }: Props) {
   const [selectedProducts, setSelectedProducts] = useState<OrderedProducts>([]);
 
