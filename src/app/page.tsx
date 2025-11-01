@@ -63,7 +63,7 @@ const testimonials = [
       "GadgetApp has revolutionized how I shop for tech. It's so convenient!",
   },
   {
-    name: 'Jane Doe',
+    name: 'Kane Willamson',
     comment:
       "The exclusive deals on this app are unbeatable. I've saved so much!",
   },
@@ -89,7 +89,7 @@ export default function Home() {
   return (
     <div className='min-h-screen'>
       <header className='container mx-auto px-4 py-6 flex justify-between items-center'>
-        <h1 className='text-2xl font-bold'>GadgetApp</h1>
+        <h1 className='text-2xl font-bold'>BagIt App</h1>
       </header>
 
       <main className='container mx-auto px-4 py-12'>
@@ -165,7 +165,7 @@ export default function Home() {
           <Card className='bg-[#1BC464] text-white'>
             <CardContent className='p-8 text-center'>
               <h3 className='text-3xl font-bold mb-4'>
-                Download GadgetApp Today
+                Download BagIt App Today
               </h3>
               <p className='text-xl mb-6'>
                 Experience the future of gadget shopping at your fingertips.
@@ -237,7 +237,7 @@ export default function Home() {
             Ready to Transform Your Gadget Shopping?
           </h3>
           <p className='text-xl  mb-8'>
-            Download GadgetApp now and get 20% off your first in-app purchase!
+            Download BagIt App now and get 20% off your first in-app purchase!
           </p>
           <Button size='lg' className='bg-[#1BC464] hover:bg-[#1bc464d7]'>
             Get Started <ChevronRight className='ml-2 h-4 w-4' />
@@ -251,7 +251,7 @@ export default function Home() {
           target='_blank'
           className='container mx-auto px-4 text-center'
         >
-          <p>@ Pendem Prashanth</p>
+          <p>@Prashanthsyntax</p>
         </Link>
       </footer>
     </div>
