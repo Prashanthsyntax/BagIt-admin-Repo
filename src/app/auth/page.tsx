@@ -53,6 +53,7 @@ export default function Auth() {
   return (
     <div className='flex h-svh items-center justify-center'>
       <div className='mx-auto grid w-[350px] gap-6'>
+        <b className='text-2xl text-center text-gray-300'>Login</b>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-4'>
             <FormField
