@@ -140,7 +140,7 @@ export const ProductPageComponent: FC<Props> = ({
           await updateProduct({
             category: Number(category),
             heroImage: heroImageUrl!,
-            imagesUrl: imageUrls,
+            imageUrl: imageUrls,
             maxQuantity: Number(maxQuantity),
             price: Number(price),
             title,
