@@ -54,7 +54,7 @@ export const ProductTableRow = ({
         )}
       </TableCell>
       <TableCell>
-        {product.imageUrl.map((url, index) => (
+        {product.imagesUrl.map((url, index) => (
           <Image
             width={40}
             height={40}
