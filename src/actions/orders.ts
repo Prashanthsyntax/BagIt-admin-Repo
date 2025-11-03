@@ -3,7 +3,6 @@
 import { createClient } from '@/supabase/server';
 import { revalidatePath } from 'next/cache';
 import { sendNotification } from './notifications';
-// import { sendNotification } from './notifications';
 
 export const getOrdersWithProducts = async () => {
   const supabase = createClient();
