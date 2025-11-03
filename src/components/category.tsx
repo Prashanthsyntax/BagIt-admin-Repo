@@ -1,11 +1,11 @@
-import Image from 'next/image';
+import Image from "next/image";
 // import Link from 'next/link';
-import { format } from 'date-fns';
-import { useState } from 'react';
-import { MoreHorizontal } from 'lucide-react';
+import { format } from "date-fns";
+import { useState } from "react";
+import { MoreHorizontal } from "lucide-react";
 
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -13,19 +13,19 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
-import { TableCell, TableRow } from '@/components/ui/table';
-import { CategoryWithProducts } from '@/app/admin/categories/categories.types';
-import { CreateCategorySchema } from '@/app/admin/categories/create-category.schema';
+import { TableCell, TableRow } from "@/components/ui/table";
+import { CategoryWithProducts } from "@/app/admin/categories/categories.types";
+import { CreateCategorySchema } from "@/app/admin/categories/create-category.schema";
 // import { promises } from 'dns';
 
 export const CategoryTableRow = ({
@@ -45,8 +45,8 @@ export const CategoryTableRow = ({
     setCurrentCategory({
       name: category.name,
       // @ts-ignore
-      image: new File([], ''),
-      intent: 'update',
+      image: new File([], ""),
+      intent: "update",
       slug: category.slug,
     });
     setIsCreateCategoryModalOpen(true);
@@ -60,76 +60,82 @@ export const CategoryTableRow = ({
   return (
     <>
       <TableRow>
-        <TableCell className='sm:table-cell'>
+        <TableCell className="sm:table-cell">
           <Image
-            alt='Product image'
-            className='aspect-square rounded-md object-cover'
-            height='64'
+            alt="Product image"
+            className="aspect-square rounded-md object-cover"
+            height="64"
             src={category.imageUrl}
-            width='64'
+            width="64"
           />
         </TableCell>
-        <TableCell className='font-medium'>{category.name}</TableCell>
-        <TableCell className='md:table-cell'>
-          {format(new Date(category.created_at), 'yyyy-MM-dd')}
+        <TableCell className="font-medium">{category.name}</TableCell>
+        <TableCell className="md:table-cell">
+          {format(new Date(category.created_at), "yyyy-MM-dd")}
         </TableCell>
-        <TableCell className='md:table-cell'>
+        <TableCell className="md:table-cell">
           {category.products && category.products.length > 0 ? (
             <Dialog>
               <DialogTrigger>
                 {category.products
                   .slice(0, 2)
-                  .map(product => product.title)
-                  .join(', ')}
+                  .map((product) => product.title)
+                  .join(", ")}
               </DialogTrigger>
               <DialogContent>
-                <DialogTitle className='sr-only'>
+                <DialogTitle className="sr-only">
                   Category product list
                 </DialogTitle>
                 <h2>Products</h2>
-                <ScrollArea className='h-[400px] rounded-md p-4'>
-                  {category.products.map(product => (
-                      <Card key={product.id} className='cursor-pointer'>
-                        <div className='grid grid-cols-[100px,1fr] items-center gap-4'>
-                          <Image
-                            alt='Product image'
-                            className='aspect-square rounded-md object-cover'
-                            height='100'
-                            src={product.heroImage}
-                            width='100'
-                          />
-                          <div className='flex flex-col space-y-1'>
-                            <h3 className='font-medium leading-none'>
-                              {product.title}
-                            </h3>
-                            <p className='text-sm text-muted-foreground'>
-                              {product.maxQuantity} in stock
-                            </p>
-                          </div>
+                <ScrollArea className="h-[400px] rounded-md p-4">
+                  {category.products.map((product) => (
+                    <Card key={product.id} className="cursor-pointer">
+                      <div className="grid grid-cols-[100px,1fr] items-center gap-4">
+                        <Image
+                          alt="Product image"
+                          className="aspect-square rounded-md object-cover"
+                          height="100"
+                          src={product.heroImage}
+                          width="100"
+                        />
+                        <div className="flex flex-col space-y-1">
+                          <h3 className="font-medium leading-none">
+                            {product.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            {product.maxQuantity} in stock
+                          </p>
                         </div>
-                      </Card>
+                      </div>
+                    </Card>
                   ))}
                 </ScrollArea>
               </DialogContent>
             </Dialog>
           ) : (
-            'No products linked to this category'
+            "No products linked to this category"
           )}
         </TableCell>
         <TableCell>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size='icon' variant='ghost'>
-                <MoreHorizontal className='h-4 w-4' />
-                <span className='sr-only'>Open menu</span>
+              <Button size="icon" variant="ghost">
+                <MoreHorizontal className="h-4 w-4" />
+                <span className="sr-only">Open menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end' className='w-40'>
+            <DropdownMenuContent align="end" className="w-40">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => handleEditClick({
-                ...category,
-                intent: 'update',
-              })}>
+              <DropdownMenuItem
+                onClick={() =>
+                  handleEditClick({
+                    image: category.imageUrl, // 👈 added
+                    name: category.name,
+                    slug: category.slug,
+                    intent: "update",
+                  })
+                }
+              >
                 Edit
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
@@ -152,14 +158,14 @@ export const CategoryTableRow = ({
               category.
             </DialogDescription>
           </DialogHeader>
-          <div className='flex justify-end gap-4'>
+          <div className="flex justify-end gap-4">
             <Button
-              variant='outline'
+              variant="outline"
               onClick={() => setIsDeleteDialogOpen(false)}
             >
               Cancel
             </Button>
-            <Button variant='destructive' onClick={handleDelete}>
+            <Button variant="destructive" onClick={handleDelete}>
               Confirm Delete
             </Button>
           </div>
