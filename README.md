@@ -40,6 +40,11 @@ npx supabase gen types typescript --project-id ryitwsehcqgizpxbnzsq<this is proj
 4. Shadcn UI for prebuilt Snippets
 5. Stripe - For Payment.
 
+## Architecture of the Project
+
+![alt text](Architecture.png)
+
+
 ## Admin Panel For React Native Application in NextJS
 - Bootstrap NextJS Application with Typescript 
 - Master Routing in NextJS
